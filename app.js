@@ -1,5 +1,6 @@
 const fs = require('fs');
 const os = require('os');
+
 const notes = require('./notes');
 const _ = require('lodash');
 const yargs = require('yargs');
@@ -18,24 +19,52 @@ if (command === 'add') {
     if (note) {
         console.log(`
         ====================================
-        Note created
-        --
-        Title: ${note.title}
-        Body: ${note.body}        
+        Note added:
         ====================================`
         );
+        notes.logNote(note);
     } else {
-        console.log('====================================');
-        console.log('Note title taken. The note was not saved.');
-        console.log('====================================');
+        console.log(`
+        ====================================
+        Note title taken. 
+        The note was not saved.
+        ====================================
+        `);
     }
-
 } else if (command === 'list') {
     notes.getAll();
 } else if (command === 'read') {
-    notes.getNote(argv.title);
+    let note = notes.getNote(argv.title);
+    if (note) {
+        console.log(`
+        ====================================
+        Note found:
+        ====================================`
+        );
+        notes.logNote(note);
+    } else {
+        console.log(`
+        ====================================
+        Could not match an existing note.
+        ====================================
+        `);
+    }
 } else if (command === 'remove') {
-    notes.removeNote(argv.title);
+    let noteRemoved = notes.removeNote(argv.title);
+    if (noteRemoved) {
+        console.log(`
+        ====================================
+        Note removed: ${argv.title}
+        ====================================
+        `);
+    } else {
+        console.log(`
+        ====================================
+        No notes were removed because the 
+        title was not found.
+        ====================================`
+        );
+    }
 } else {
     console.log('Command not recognized')
 }

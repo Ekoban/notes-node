@@ -42,19 +42,35 @@ const getAll = () => {
 };
 
 const getNote = (title) => {
-    console.log("Getting note: ", title)
+    let notes = fetchNotes();
+    let matchingNote = notes.filter(note => note.title === title);
+    return matchingNote[0];
 };
 
 const removeNote = (title) => {
     let notes = fetchNotes();
     let filteredNotes = notes.filter(note => note.title !== title);
     saveNotes(filteredNotes);
+
+    return notes.length !== filteredNotes.length;
+
 };
+
+const logNote = (note) => {
+    debugger;
+    console.log(`
+        ====================================
+        Title: ${note.title}
+        Body: ${note.body} 
+        ====================================`
+        );
+}
 
 
 module.exports = {
     addNote,
     getAll,
     getNote,
-    removeNote //ES6 notation for addNote: addNote
+    removeNote,
+    logNote //ES6 notation for addNote: addNote
 }
