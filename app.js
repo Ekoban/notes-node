@@ -7,20 +7,20 @@ const yargs = require('yargs');
 // console.log(_.uniq(['1','2','3','2','4','7']))
 // console.log('Command: ', command);
 const argv = yargs.argv;
-const command = process.argv[2];
+const command = argv._[0];
 
-console.log('Command: ', command);
-console.log('Process: ', process.argv);
-console.log('Yargs: ', argv);
+// console.log('Command: ', command);
+// console.log('Process: ', process.argv);
+// console.log('Yargs: ', argv);
 
 if (command === 'add') {
     notes.addNote(argv.title, argv.body);
 } else if (command === 'list') {
-    console.log('Listing all notes');
+    notes.getAll();
 } else if (command === 'read') {
-    console.log('Reading an individual note');
+    notes.getNote(argv.title);
 } else if (command === 'remove') {
-    console.log('Removing a note');
+    notes.removeNote(argv.title);
 } else {
     console.log('Command not recognized')
 }
