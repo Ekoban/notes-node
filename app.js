@@ -14,7 +14,22 @@ const command = argv._[0];
 // console.log('Yargs: ', argv);
 
 if (command === 'add') {
-    notes.addNote(argv.title, argv.body);
+    let note = notes.addNote(argv.title, argv.body);
+    if (note) {
+        console.log(`
+        ====================================
+        Note created
+        --
+        Title: ${note.title}
+        Body: ${note.body}        
+        ====================================`
+        );
+    } else {
+        console.log('====================================');
+        console.log('Note title taken. The note was not saved.');
+        console.log('====================================');
+    }
+
 } else if (command === 'list') {
     notes.getAll();
 } else if (command === 'read') {
