@@ -32,7 +32,16 @@ if (command === 'add') {
         `);
     }
 } else if (command === 'list') {
-    notes.getAll();
+    let notelist = notes.getAll();
+    console.log(`
+        ====================================
+        Notes:
+        ====================================`
+        );
+    
+    notelist.forEach(note =>
+        notes.logNote(note)
+        );
 } else if (command === 'read') {
     let note = notes.getNote(argv.title);
     if (note) {
