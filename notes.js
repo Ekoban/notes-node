@@ -1,5 +1,4 @@
 const fs = require('fs');
-console.log('Starting notes.js');
 
 const fetchNotes = () => {
     try { //check s'il y a déjà du contenu dans notes-data

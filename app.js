@@ -5,9 +5,37 @@ const notes = require('./notes');
 const _ = require('lodash');
 const yargs = require('yargs');
 
+const titleOptions = {
+    describe: 'Title of the note',
+    demand: true,
+    alias: 't'
+};
+
+const bodyOptions = {
+    describe: 'Body of the note',
+    demand: true,
+    alias: 'b',
+}
+
+
 // console.log(_.uniq(['1','2','3','2','4','7']))
 // console.log('Command: ', command);
-const argv = yargs.argv;
+const argv = yargs
+    .command('add', 'Add a new note', {
+        title: titleOptions,
+        body: bodyOptions
+    })
+    .command('read', 'Read a note - from its title.', {
+        title: titleOptions
+    })
+    .command('list', 'Print all notes in the notes file.')
+    .command('remove', 'Remove a note - from its title.', {
+        title: titleOptions
+    })
+    
+    
+    .help() //returns useful info when program is run
+    .argv;
 const command = argv._[0];
 
 // console.log('Command: ', command);
@@ -35,7 +63,7 @@ if (command === 'add') {
     let notelist = notes.getAll();
     console.log(`
         ====================================
-        Notes:
+        ${notelist.length} notes:
         ====================================`
         );
     
